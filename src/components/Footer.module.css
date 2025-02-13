@@ -1,0 +1,33 @@
+.footer{
+    color:white;
+    background-color:lightblue;
+    margin-top :auto;
+    padding: 20px 0;
+    width:100%;
+}
+.heading{
+    color:white;
+    margin-right: auto;
+}
+.social-icons {
+    margin-top: 10px;
+  }
+ .icon {
+    font-size: 30px; /* Adjust size */
+    margin: 0 15px; /* Space between icons */
+    color: white; /* Default color */
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+.icon.youtube:hover {
+    color: red;
+    transform: scale(1.2);
+  }
+  .icon.spotify:hover {
+    color: green;
+    transform: scale(1.2);
+  }
+  .icon.facebook:hover {
+    color: blue;
+    transform: scale(1.2);
+  }
