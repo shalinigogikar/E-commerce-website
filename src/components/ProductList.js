@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Row, Col, Container } from "react-bootstrap";
 import classes from "./Style.module.css";
+import { CartContext } from "./CartContext";
 const productsArr = [
     {
       title: "Colors",
@@ -24,6 +25,7 @@ const productsArr = [
     },
   ];
   const ProductList = () => {
+  const { addToCart }=useContext(CartContext);
     return (
       <Container className="mt-4">
         <h2 style={{textAlign:"center"}}>Colors</h2>
@@ -34,7 +36,7 @@ const productsArr = [
                 <img src={product.imageUrl} alt={product.title} className="img-fluid mb-6" style={{ maxHeight: "300px",maxWidth:"200px" }}/>
                   <h4>{product.title}</h4>
                   <p>Price: ${product.price}</p>
-                  <Button variant="primary">Add to Cart</Button>
+                  <Button variant="primary" onClick={()=>addToCart(product)}>Add to Cart</Button>
                 </div>
             </Col>
           ))}
