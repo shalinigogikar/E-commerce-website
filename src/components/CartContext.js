@@ -21,7 +21,8 @@ const [cart,setCart]=useState([
         quantity: 1,
       },
 ]);
-const addToCart=(product)=>{
+const addToCart=async(product)=>{
+  try{
     setCart((prev)=>{
         const existItemIndex=prev.findIndex((item)=>item.title===product.title);
         if(existItemIndex!==-1){
@@ -32,13 +33,20 @@ const addToCart=(product)=>{
                return[...prev,{...product,quantity:1}];
 }
     });
+}catch (error) {
+  console.error("Error adding to cart:", error);
 }
-const removeFromCart = (title) => {
+};
+const removeFromCart = async(title) => {
+  try{
     setCart((prevCart) => prevCart
       .map((item) =>
         item.title === title ? { ...item, quantity: item.quantity - 1 } : item)
        .filter((item) => item.quantity>0));
-  };
+  }catch (error) {
+    console.error("Error removing from cart:", error);
+  }
+};
 return(
     <CartContext.Provider value={{cart,addToCart,removeFromCart}}>
         {children}
