@@ -1,12 +1,21 @@
 header {
     text-align: center;
-    margin:0;
+    margin-top:0;
     padding:0px;
     padding-bottom:30px;
     background:#777;
     color:white;
     font-size: 100px;
 }
+.heading {
+    font-size: 24px;
+    margin-top: 50px;
+    font-weight: bold;
+    border: 1px solid skyblue!important;
+    border-radius:5px;
+    display: inline-block;
+    padding:20px 20px;
+  }
 .button{
     background-color: blue;
     color:black;
@@ -16,3 +25,18 @@ header {
     font-weight: bold;
     display: block;
 }
+
+  .playButton {
+    background-color: gray !important;
+    color: gray;
+    border: 1px solid skyblue!important;
+    padding: 40px 40px;
+    font-size: 100px;
+    cursor: pointer;
+    border-radius: 50%!important;
+    margin-top: 5px;
+    display: flex;
+  }
+  .playButton:hover {
+    background-color: gray;
+  }
