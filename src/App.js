@@ -10,6 +10,7 @@ import  { CartContext } from "./components/CartContext";
 import About from "./components/About";
 import Home from "./components/Home";
 import ContactUs from "./components/ContactUs";
+import ProductPage from "./components/ProductPage";
 function App() {
   return (
     <BrowserRouter>
@@ -48,6 +49,7 @@ function MainContent() {
           <Route path="/store" component={ProductList} />
           <Route path="/about" component={About} /> 
           <Route path="/contact" component={ContactUs}/>
+          <Route path="/product/:id" component={ProductPage} />
         </Switch></Container>
     {/*<ProductList/> we have moved it to store*/}
     
