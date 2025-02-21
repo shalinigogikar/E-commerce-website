@@ -16,8 +16,8 @@ function ProductPage() {
 
       {/* Display product images */}
       <div>
-        {product.images && product.images.length > 0 ? (
-          product.images.map((img, index) => (
+        {product.imageUrl && product.imageUrl.length > 0 ? (
+          product.imageUrl.map((img, index) => (
             <img key={index} src={img} alt={product.title} width="200" />
           ))
         ) : (
