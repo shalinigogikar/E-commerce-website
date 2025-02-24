@@ -1,5 +1,5 @@
 import React,{useContext, useState}from "react";
-import {BrowserRouter,  Route, Switch, Link,useLocation } from "react-router-dom";
+import {BrowserRouter,  Route, Switch, Link,useLocation ,useHistory} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import { Container,Navbar,Nav } from "react-bootstrap";
 import ProductList from "./components/ProductList";
@@ -11,6 +11,8 @@ import About from "./components/About";
 import Home from "./components/Home";
 import ContactUs from "./components/ContactUs";
 import ProductPage from "./components/ProductPage";
+import Login from "./components/Login";
+import { AuthContext } from "./components/AuthContext";
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +25,13 @@ function MainContent() {
   const [showCart, setShowCart] = useState(false);
   const {cart}=useContext(CartContext);
   const location=useLocation();
+  const history = useHistory();
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    console.error("AuthContext is not available!");
+    return null;
+  }
+  const {user,logout}=authContext;
   return (
     <>
     <Navbar bg="dark" variant="dark" expand="md">
@@ -32,6 +41,11 @@ function MainContent() {
       <Nav.Link as={Link} to="/store">Store</Nav.Link>
       <Nav.Link as={Link} to="/about">About</Nav.Link>
       <Nav.Link as={Link} to="/contact">ContactUs</Nav.Link>
+      {!user ? (
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            ) : (
+              <Button variant="outline-light" onClick={() => { logout(); history("/"); }}>Logout</Button>
+            )}
       </Nav>
       <Button onClick={() => setShowCart(true)}>Cart{cart.length}</Button>
       </Container>
@@ -50,6 +64,7 @@ function MainContent() {
           <Route path="/about" component={About} /> 
           <Route path="/contact" component={ContactUs}/>
           <Route path="/product/:id" component={ProductPage} />
+          <Route path="/login" component={Login} />
         </Switch></Container>
     {/*<ProductList/> we have moved it to store*/}
     
