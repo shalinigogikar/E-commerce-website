@@ -1,5 +1,5 @@
 import React,{useContext, useState}from "react";
-import {BrowserRouter,  Route, Switch, Link,useLocation ,useHistory} from "react-router-dom";
+import {BrowserRouter ,Routes,  Route,Navigate,  Link,useLocation ,useNavigate} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import { Container,Navbar,Nav } from "react-bootstrap";
 import ProductList from "./components/ProductList";
@@ -15,9 +15,7 @@ import Login from "./components/Login";
 import { AuthContext } from "./components/AuthContext";
 function App() {
   return (
-    <BrowserRouter>
       <MainContent />
-    </BrowserRouter>
   );
 }
 
@@ -25,7 +23,7 @@ function MainContent() {
   const [showCart, setShowCart] = useState(false);
   const {cart}=useContext(CartContext);
   const location=useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   if (!authContext) {
     console.error("AuthContext is not available!");
@@ -44,7 +42,7 @@ function MainContent() {
       {!user ? (
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
             ) : (
-              <Button variant="outline-light" onClick={() => { logout(); history("/"); }}>Logout</Button>
+              <Button variant="outline-light" onClick={() => { logout(); navigate("/"); }}>Logout</Button>
             )}
       </Nav>
       <Button onClick={() => setShowCart(true)}>Cart{cart.length}</Button>
@@ -58,14 +56,14 @@ function MainContent() {
             <Button className={classes.playButton} variant="dark">►</Button>
             </div>}</header>
             <Container>
-    <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/store" component={ProductList} />
-          <Route path="/about" component={About} /> 
-          <Route path="/contact" component={ContactUs}/>
-          <Route path="/product/:id" component={ProductPage} />
-          <Route path="/login" component={Login} />
-        </Switch></Container>
+    <Routes>
+          <Route path="/" exact element={<Home/>} />
+          <Route path="/store" element={user ? <ProductList /> : <Navigate to="/login" replace />} />
+          <Route path="/about" element={<About/>} /> 
+          <Route path="/contact" element={<ContactUs/>}/>
+          <Route path="/product/:id" element={user ? <ProductPage /> : <Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login/>} />
+        </Routes></Container>
     {/*<ProductList/> we have moved it to store*/}
     
     <Footer/>

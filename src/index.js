@@ -10,13 +10,13 @@ import AuthProvider from "./components/AuthContext"; // ✅ Use default import
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
     <AuthProvider> 
+    <BrowserRouter>
       <CartProvider>
         <App />
       </CartProvider>
-    </AuthProvider>
   </BrowserRouter>
+   </AuthProvider>
 );
 
 
