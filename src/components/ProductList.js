@@ -23,7 +23,7 @@ import ProductData from "./ProductData";
                  <Button as={Link} to={`/product/${product.id}`} variant="info" className="me-2">
                   View Product
                 </Button>
-                  <Button variant="primary" onClick={()=>addToCart(product)}>Add to Cart</Button>
+                  <Button variant="primary"onClick={() => addToCart(product)} >Add to Cart</Button>
                 </div>
             </Col>
           ))}
