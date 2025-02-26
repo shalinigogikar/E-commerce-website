@@ -1,21 +1,23 @@
-import React,{useContext, useState}from "react";
+import React,{useContext, useState,lazy,Suspense}from "react";
 import {BrowserRouter ,Routes,  Route,Navigate,  Link,useLocation ,useNavigate} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import { Container,Navbar,Nav } from "react-bootstrap";
-import ProductList from "./components/ProductList";
 import classes from "./components/Style.module.css";
-import Footer from "./components/Footer";
-import Cart from "./components/Cart";
 import  { CartContext } from "./components/CartContext";
-import About from "./components/About";
-import Home from "./components/Home";
-import ContactUs from "./components/ContactUs";
-import ProductPage from "./components/ProductPage";
-import Login from "./components/Login";
 import { AuthContext } from "./components/AuthContext";
+const ProductList=lazy(() =>import("./components/ProductList"));
+const Footer =lazy(()=>import("./components/Footer"));
+const Cart=lazy(()=>import("./components/Cart"));
+const About =lazy(()=>import("./components/About"));
+const Home=lazy(()=>import("./components/Home"));
+const ContactUs=lazy(()=>import("./components/ContactUs"));
+const ProductPage=lazy(()=>import("./components/ProductPage"));
+const Login =lazy(()=>import("./components/Login"));
 function App() {
   return (
+    <Suspense fallback={<div>Loading...</div>}>
       <MainContent />
+      </Suspense>
   );
 }
 
@@ -48,7 +50,10 @@ function MainContent() {
       <Button onClick={() => setShowCart(true)}>Cart{cart.length}</Button>
       </Container>
     </Navbar>
-    {showCart&&<Cart show={showCart} handleClose={() => setShowCart(false)} />}
+    {showCart&&(
+     <Suspense fallback={<div>Loading Cart...</div>}>
+     <Cart show={showCart} handleClose={() => setShowCart(false)} />
+      </Suspense>)}
     <header className={classes.header}>
       <h1>The Generics</h1>
       {location.pathname==="/"&&<div>
@@ -56,6 +61,7 @@ function MainContent() {
             <Button className={classes.playButton} variant="dark">►</Button>
             </div>}</header>
             <Container>
+            <Suspense fallback={<div>Loading Cart...</div>}>
     <Routes>
           <Route path="/" exact element={<Home/>} />
           <Route path="/store" element={user ? <ProductList /> : <Navigate to="/login" replace />} />
@@ -63,10 +69,13 @@ function MainContent() {
           <Route path="/contact" element={<ContactUs/>}/>
           <Route path="/product/:id" element={user ? <ProductPage /> : <Navigate to="/login" replace />} />
           <Route path="/login" element={<Login/>} />
-        </Routes></Container>
+        </Routes>
+        </Suspense>
+        </Container>
     {/*<ProductList/> we have moved it to store*/}
-    
+    <Suspense fallback={<div>Loading Cart...</div>}>
     <Footer/>
+    </Suspense>
   </>
   );
 }
